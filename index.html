@@ -94,6 +94,16 @@
           linear-gradient(180deg, #030712 0%, #050a14 40%, #030712 100%);
       }
 
+      .hero-shell,
+      .grid-glow,
+      .ring-lines,
+      .dots,
+      .animate-aura,
+      .animate-float {
+        transform: translateZ(0);
+        backface-visibility: hidden;
+      }
+
       .grid-glow {
         background-image:
           linear-gradient(rgba(255, 255, 255, .035) 1px, transparent 1px),
@@ -162,11 +172,8 @@
       }
 
       .reveal-section {
-        opacity: 0;
-        transform: translate3d(0, 30px, 0);
-        transition:
-          opacity .7s cubic-bezier(.22, 1, .36, 1),
-          transform .7s cubic-bezier(.22, 1, .36, 1);
+        opacity: 1;
+        transform: translate3d(0, 0, 0);
       }
 
       .reveal-section.is-visible {
@@ -1702,21 +1709,21 @@
           const frameClassName = compact
             ? isPortraitShot
               ? "min-h-0 rounded-lg bg-[radial-gradient(circle_at_top,rgba(76,116,255,.18),rgba(9,13,27,.96)_58%)] p-3"
-              : "min-h-0 rounded-lg bg-[radial-gradient(180deg,rgba(12,18,35,1)_0%,rgba(8,12,22,1)_100%)] p-1.5 border border-violet/10 shadow-[0_0_30px_rgba(124,60,255,.05)]"
+              : "min-h-0 rounded-lg bg-[#0a0f1f] p-1.5 border border-violet/15"
             : isCardSurface
-              ? `min-h-full ${project.cardFrameClass || "bg-[radial-gradient(180deg,rgba(12,18,35,1)_0%,rgba(8,12,22,1)_100%)] p-0 border border-violet/15"}`
+              ? `min-h-full ${project.cardFrameClass || "bg-[#0a0f1f] p-0 border border-violet/15"}`
               : isPortraitShot
                 ? "min-h-[260px] bg-[radial-gradient(circle_at_top,rgba(76,116,255,.15),rgba(10,14,27,.98)_62%)] p-5 md:min-h-[310px] md:p-6"
-                : "min-h-[260px] bg-[radial-gradient(180deg,rgba(12,18,35,1)_0%,rgba(8,12,22,1)_100%)] p-3 md:min-h-[310px] md:p-4 border border-violet/10 shadow-[inset_0_1px_0_rgba(255,255,255,.03),0_0_40px_rgba(124,60,255,.06)]";
+                : "min-h-[260px] bg-[#0a0f1f] p-3 md:min-h-[310px] md:p-4 border border-violet/15";
           const imageClassName = compact
             ? isPortraitShot
               ? "mx-auto h-full max-h-full w-auto max-w-[66%] rounded-[18px] object-contain object-center shadow-[0_18px_40px_rgba(0,0,0,.32)]"
-              : "h-full w-full object-contain object-center rounded-lg shadow-[0_8px_25px_rgba(0,0,0,.35)]"
+              : "h-full w-full object-contain object-center rounded-lg"
             : isCardSurface
               ? project.cardImageClass || "h-full w-full object-cover object-top"
               : isPortraitShot
                 ? "mx-auto h-full max-h-full w-auto max-w-[42%] rounded-[22px] object-contain object-center shadow-[0_22px_55px_rgba(0,0,0,.34)]"
-                : "h-full w-full object-contain object-center rounded-lg shadow-[0_12px_35px_rgba(0,0,0,.4)]";
+                : "h-full w-full object-contain object-center rounded-lg";
 
           return h(
             "div",
@@ -1814,8 +1821,8 @@
             onKeyDown: (event) => {
               if (event.key === "Enter" || event.key === " ") onOpen(index);
             },
-             className:
-               "pointer-react group overflow-hidden rounded-lg border border-violet/15 bg-[radial-gradient(180deg,rgba(14,20,40,.7)_0%,rgba(8,12,22,.85)_100%)] text-left shadow-[0_22px_70px_rgba(0,0,0,.24),inset_0_1px_0_rgba(255,255,255,.03)] transition duration-300 hover:-translate-y-2 hover:scale-[1.01] hover:border-violet/60 hover:shadow-glow"
+              className:
+                "pointer-react group overflow-hidden rounded-lg border border-violet/15 bg-[#070d1a] text-left shadow-[0_22px_70px_rgba(0,0,0,.24)] transition duration-300 hover:-translate-y-2 hover:scale-[1.01] hover:border-violet/60 hover:shadow-glow"
           },
           h(
             "div",
@@ -2232,10 +2239,10 @@
             h(
             "div",
             { className: "mt-7 md:mt-8" },
-              h("div", { className: "overflow-hidden rounded-xl border border-violet/15 bg-[radial-gradient(180deg,rgba(14,20,40,.9)_0%,rgba(8,12,22,.95)_100%)] shadow-[0_0_50px_rgba(124,60,255,.08),inset_0_1px_0_rgba(255,255,255,.04)]" }, h(ProjectVisual, { project, variant: activeImage })),
+              h("div", { className: "overflow-hidden rounded-xl border border-violet/15 bg-[#0a0f1f]" }, h(ProjectVisual, { project, variant: activeImage })),
               h(
                 "div",
-                { className: "mt-4 flex items-center gap-3 rounded-xl border border-violet/15 bg-[radial-gradient(180deg,rgba(14,20,40,.7)_0%,rgba(8,12,22,.8)_100%)] p-4 shadow-[inset_0_1px_0_rgba(255,255,255,.03)]" },
+                { className: "mt-4 flex items-center gap-3 rounded-xl border border-violet/15 bg-[#0a0f1f]/80 p-4" },
                 h("button", { type: "button", onClick: () => onStep(-1), "aria-label": "Previous image", className: "grid h-10 w-10 shrink-0 place-items-center rounded-lg bg-violet/15 text-white transition hover:bg-violet/30" }, h(ChevronLeft, { size: 22 })),
                 h(
                   "div",
@@ -2247,7 +2254,7 @@
                         key: thumb,
                         type: "button",
                         onClick: () => setActiveImage(thumb),
-                        className: `h-20 overflow-hidden rounded-lg border transition duration-300 ${activeImage === thumb ? "border-violet shadow-glow" : "border-violet/10 bg-[radial-gradient(180deg,rgba(12,18,35,.8)_0%,rgba(8,12,22,.9)_100%)] opacity-70 hover:opacity-100 hover:border-violet/30"}`
+                        className: `h-20 overflow-hidden rounded-lg border transition duration-300 ${activeImage === thumb ? "border-violet shadow-glow" : "border-violet/10 bg-[#0a0f1f] opacity-70 hover:opacity-100 hover:border-violet/30"}`
                       },
                       h(ProjectVisual, { project, variant: thumb, compact: true })
                     )
@@ -2262,7 +2269,7 @@
 
       function App() {
         const [activeSection, setActiveSection] = useState("home");
-        const [visibleSections, setVisibleSections] = useState({ home: true });
+        const [visibleSections, setVisibleSections] = useState({ home: true, portfolio: true, certifications: true, tools: true, contacts: true });
         const [modalIndex, setModalIndex] = useState(null);
         const [activeImage, setActiveImage] = useState(0);
         const selectedProject = modalIndex === null ? null : projects[modalIndex];
