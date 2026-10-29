@@ -1,3 +1,4 @@
+import { installMotion } from "./motion.js";
 import React, { useEffect, useState } from "https://esm.sh/react@19";
 import { createRoot } from "https://esm.sh/react-dom@19/client";
 import {
@@ -1082,6 +1083,7 @@ function ProjectModal({ project, index, activeImage, setActiveImage, onClose, on
 }
 
 function App() {
+  const [motionPaused, setMotionPaused] = useState(false);
   const [activeSection, setActiveSection] = useState("home");
   const [visibleSections, setVisibleSections] = useState({ home: true, portfolio: true, certifications: true, tools: true, contacts: true });
   const [modalIndex, setModalIndex] = useState(null);
@@ -1212,6 +1214,27 @@ function App() {
     };
   }, [modalIndex, visibleSections]);
 
+  useEffect(() => {
+    const preference = window.matchMedia("(prefers-reduced-motion: reduce)");
+    const pointer = window.matchMedia("(hover: hover) and (pointer: fine)");
+    let cleanup = () => {};
+    function syncMotion() {
+      cleanup();
+      const reduced = motionPaused || preference.matches;
+      document.body.classList.toggle("motion-paused", reduced);
+      cleanup = installMotion({ reduced, finePointer: pointer.matches });
+    }
+    syncMotion();
+    preference.addEventListener("change", syncMotion);
+    pointer.addEventListener("change", syncMotion);
+    return () => {
+      cleanup();
+      preference.removeEventListener("change", syncMotion);
+      pointer.removeEventListener("change", syncMotion);
+      document.body.classList.remove("motion-paused");
+    };
+  }, [motionPaused]);
+
   function openProject(index) {
     setActiveImage(0);
     setModalIndex(index);
@@ -1226,6 +1249,10 @@ function App() {
     React.Fragment,
     null,
     h(Header, { activeSection }),
+    h("button", {
+      type: "button", className: "motion-toggle", "aria-pressed": motionPaused,
+      onClick: () => setMotionPaused(paused => !paused)
+    }, h("span", { className: "motion-indicator", "aria-hidden": true }, h("i"), h("i"), h("i")), motionPaused ? "Resume motion" : "Pause motion"),
     h("main", null, h(Hero, { isVisible: visibleSections.home }), h(PortfolioSection, { onOpenProject: openProject, isVisible: visibleSections.portfolio }), h(CertificationsSection, { isVisible: visibleSections.certifications }), h(ToolsSection, { isVisible: visibleSections.tools }), h(ContactsSection, { isVisible: visibleSections.contacts })),
     h(ProjectModal, {
       project: selectedProject,

@@ -17,6 +17,7 @@ The preview serves only public site paths and is intended for local development.
 
 - `index.html`: deployment entry point, Tailwind configuration and initial scroll behavior.
 - `assets/js/app.js`: React components and portfolio, certificate and tool data. Uses `React.createElement`, so no JSX compilation is needed.
+- `assets/js/motion.js`: scroll reveals, pointer tilt and effect cleanup. Reduced-motion preferences and the Pause motion control disable decorative movement.
 - `assets/css/site.css`: custom styling and responsive rules. CSS image URLs are relative to this file.
 - `assets/`: images grouped into hero, projects, certifications, icons and favicon folders. JavaScript image paths resolve relative to `index.html`.
 - `server.mjs`: dependency-free local preview server.

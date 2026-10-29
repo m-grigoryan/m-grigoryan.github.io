@@ -11,7 +11,7 @@ test('all local HTML, CSS and application asset references exist', async () => {
     assert.ok(refs.length, `No references checked in ${file}`);
     for (const [, ref] of refs) {
       // App data paths resolve against the document, CSS paths against the CSS file.
-      await access(new URL(ref, file.endsWith('.css') ? new URL(file, root) : new URL('index.html', root)));
+      await access(new URL(ref.split("?")[0], file.endsWith('.css') ? new URL(file, root) : new URL('index.html', root)));
     }
     assert.doesNotMatch(source, /#replace-with-/);
   }
