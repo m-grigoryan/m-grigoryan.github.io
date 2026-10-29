@@ -268,7 +268,7 @@ const toolGroups = [
   },
   {
     title: "Google Workspace",
-    headerLogo: "https://cdn.simpleicons.org/google/4285F4",
+    Icon: BriefcaseBusiness,
     tools: [
       { name: "Gmail", logo: "https://cdn.simpleicons.org/gmail/EA4335" },
       { name: "Google Calendar", logo: "https://cdn.simpleicons.org/googlecalendar/4285F4" },
@@ -359,10 +359,10 @@ function Header({ activeSection }) {
           className: "flex shrink-0 items-center"
         },
         h("img", {
-          src: "./assets/favicon/brand-icon.png",
+          src: "./assets/favicon/monogram.svg",
           alt: "Mihran Grigoryan logo",
           draggable: false,
-          className: "h-[72px] w-[72px] object-contain sm:h-[76px] sm:w-[76px] lg:h-[92px] lg:w-[92px] xl:h-[100px] xl:w-[100px]"
+          className: "brand-mark h-14 w-14 object-contain sm:h-16 sm:w-16"
         })
       ),
       h(
@@ -589,20 +589,12 @@ function Hero({ isVisible }) {
             h(
               IconButton,
               { label: "Email", href: "mailto:mihran.s.grigoryan@gmail.com" },
-              h("img", {
-                src: "./assets/icons/gmail-logo.svg",
-                alt: "Gmail",
-                className: "h-10 w-10 object-contain md:h-11 md:w-11"
-              })
+              h(Mail, { size: 23, strokeWidth: 1.7, "aria-hidden": true })
             ),
             h(
               IconButton,
               { label: "LinkedIn", href: "https://www.linkedin.com/in/mihran-grigoryan-/" },
-              h("img", {
-                src: "./assets/icons/linkedin-logo.svg",
-                alt: "LinkedIn",
-                className: "h-[32px] w-[32px] object-contain md:h-[35px] md:w-[35px]"
-              })
+              h(Linkedin, { size: 22, strokeWidth: 1.7, "aria-hidden": true })
             )
           )
         )
@@ -679,7 +671,7 @@ function PortfolioSection({ onOpenProject, isVisible }) {
 }
 
 function CertificationItem({ certification, index }) {
-  const spanClass = index === 3 ? "col-span-2 col-start-2" : "col-span-2";
+  const spanClass = index === 3 ? "certificate-centered" : "";
   return h(
     certification.credentialUrl ? "a" : "article",
     {
@@ -687,19 +679,19 @@ function CertificationItem({ certification, index }) {
       target: "_blank",
       rel: "noopener noreferrer",
       className:
-        `group flex flex-col items-center text-center outline-none transition duration-300 hover:-translate-y-2 focus-visible:-translate-y-2 ${spanClass}`
+        `certificate-card group ${spanClass}`
     },
     h(
       "div",
       {
         className:
-          "relative mb-7 grid aspect-square w-[210px] place-items-center rounded-full border border-white/[.1] bg-white/[.03] shadow-[0_24px_70px_rgba(0,0,0,.28)] transition duration-300 group-hover:border-violet/50 group-hover:shadow-glow sm:w-[240px] lg:w-[230px] xl:w-[270px]"
+          "certificate-badge"
       },
       h("div", { className: "absolute inset-0 rounded-full bg-[radial-gradient(circle_at_50%_35%,rgba(124,60,255,.16),transparent_62%)] opacity-0 transition duration-300 group-hover:opacity-100" }),
       h("img", {
         src: certification.logo,
         alt: `${certification.title} logo`,
-        className: "relative h-full w-full rounded-full object-cover transition duration-300 group-hover:scale-[1.045]"
+        className: `certificate-image ${certification.title.startsWith("Google") ? "certificate-image-google" : ""}`
       })
     ),
     h("div", { className: "cert-text min-w-0 flex-1" },
@@ -729,7 +721,7 @@ function CertificationsSection({ isVisible }) {
       ),
       h(
         "div",
-        { className: "grid grid-cols-6 gap-x-3 gap-y-5 border-b border-white/[.08] pb-12 md:gap-x-5 md:gap-y-7 lg:gap-x-8 lg:gap-y-9" },
+        { className: "certificate-grid" },
         certifications.map((certification, index) => h(CertificationItem, { key: certification.title, certification, index }))
       ),
       h(

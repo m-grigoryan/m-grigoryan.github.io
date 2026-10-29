@@ -20,3 +20,12 @@ This is a targeted maintenance audit, not a guarantee that every possible defect
 - JavaScript syntax check and git diff whitespace check passed.
 - Local browser: dialog initial focus, Shift+Tab/Tab wrap, next-image selection, Escape dismissal and trigger focus restoration passed. No console errors observed.
 - 390px mobile browser: menu opened, portfolio navigation closed the menu, no horizontal document overflow and no broken loaded images observed.
+
+## Visual refinement requested after review
+
+- Replaced the square brand artwork with an original transparent SVG monogram.
+- Blended the portrait edges with CSS masks, removing the hard image boundary without changing the portrait file.
+- Refined navigation and heading typography, added layered blue/purple ambient backgrounds, and aligned matching outline contact icons to the left of the portfolio action.
+- Unified all certificate cards (including the unlinked Atlassian card), removed dark square badge corners using presentation styles, and stacked all five cards in one column on mobile.
+- Replaced the Google Workspace category logo with the same purple outline icon treatment used by the other tool categories.
+- Browser review at 1440px, 390px and 320px confirmed layout and no horizontal overflow on the narrow screens; no broken loaded images were found at 390px. Asset-reference, syntax and whitespace checks passed. The HTTP server integration test could not rerun in the current restricted session because opening a port returned EPERM; the unchanged server test passed in the initial audit.
