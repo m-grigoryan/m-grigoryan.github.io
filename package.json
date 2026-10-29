@@ -1,17 +1,13 @@
 {
-  "name": "mihran-homepage-hero",
+  "name": "mihran-portfolio",
   "version": "1.0.0",
   "private": true,
   "type": "module",
-  "scripts": {
-    "dev": "node server.mjs"
+  "engines": {
+    "node": ">=22"
   },
-  "dependencies": {
-    "@vitejs/plugin-react": "latest",
-    "vite": "latest",
-    "react": "latest",
-    "react-dom": "latest",
-    "tailwindcss": "latest",
-    "lucide-react": "latest"
+  "scripts": {
+    "dev": "node server.mjs",
+    "test": "node --test"
   }
 }
